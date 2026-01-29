@@ -4164,7 +4164,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
         p2m_set_altp2m(v, idx);
     }
 
-    printk(XENLOG_ERR "vmexit %d\n", exit_reason);
+    printk(XENLOG_ERR "vmexit %ld\n", exit_reason);
     if ( unlikely(currd->arch.monitor.vmexit_enabled) )
     {
         int rc;
