@@ -4066,8 +4066,6 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
     struct vcpu *v = current;
     struct domain *currd = v->domain;
 
-    printk(XENLOG_ERR "vmexit %ld\n", exit_reason);
-
     __vmread(GUEST_RIP,    &regs->rip);
     __vmread(GUEST_RSP,    &regs->rsp);
     __vmread(GUEST_RFLAGS, &regs->rflags);
@@ -4094,6 +4092,8 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
     }
 
     __vmread(VM_EXIT_REASON, &exit_reason);
+
+    printk(XENLOG_ERR "vmexit %ld\n", exit_reason);
 
     if ( hvm_long_mode_active(v) )
         TRACE_TIME(TRC_HVM_VMX_EXIT64, exit_reason, regs->rip, regs->rip >> 32);
